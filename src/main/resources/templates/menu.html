@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="LayoutPadrao">
+	  
+		<head>
+			<meta charset="UTF-8">
+			<title>Menu</title>
+		</head>
+		
+		<section layout:fragment="conteudo">
+			
+		<ul class="nav nav-pills">
+			<li role="presentation" class="active"><a th:href="@{/menu}">Home</a></li>
+			<li role="presentation"><a th:href="@{/atendimentos/novo}">Atendimentos</a></li>
+			<li role="presentation"><a th:href="@{/departamentos}">Departamentos</a></li>
+			<li role="presentation"><a th:href="@{/funcionarios}">Funcionarios</a></li>
+			<li role="presentation"><a th:href="@{/impressoras}">Impressoras</a></li>
+			<li role="presentation"><a th:href="@{/reunioes}">Reuniões</a></li>
+		</ul>
+		
+		<h5 class="bg-info">Menu</h5>
+			
+		</section>
+	  
+</html>

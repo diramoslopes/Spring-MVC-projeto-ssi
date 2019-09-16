@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="LayoutPadrao">
+	  
+	<head>
+		<meta charset="UTF-8">
+		<title>Cadastro Atendimento</title>
+	</head>
+	
+	<section layout:fragment="conteudo">
+	
+		<ul class="nav nav-pills ">
+			<li role="presentation"><a th:href="@{/menu}">Home</a></li>
+			<li role="presentation" class="active"><a th:href="@{/atendimentos/novo}">Atendimentos</a></li>
+			<li role="presentation"><a th:href="@{/departamentos}">Departamentos</a></li>
+			<li role="presentation"><a th:href="@{/funcionarios}">Funcionarios</a></li>
+			<li role="presentation"><a th:href="@{/impressoras}">Impressoras</a></li>
+			<li role="presentation"><a th:href="@{/reunioes}">Reuniões</a></li>
+		</ul>
+	
+		<h5 class="bg-info">Cadastro atendimento</h5>
+		
+		<form class="form-horizontal" method="POST" th:action="@{/atendimentos}" th:object="${atendimento}">
+			
+			<div layout:insert="MensagemGeral"></div>
+			<div layout:insert="MensagemErro"></div>
+			
+			<div class="panel panel-default">
+			
+					<div class="panel-heading">
+		    			<div class="clearfix">
+			    			<h1 class="panel-title aw-titulo-panel">Novo atendimento</h1>
+			    			<a class="btn btn-link aw-link-panel" th:href="@{/atendimentos}">Busca atendimento</a>
+			    		</div>
+		    		</div>
+				
+					<div class="panel-body">
+						<input type="hidden" th:field="*{id}" />
+					
+						<div class="form-group" th:classappend="${#fields.hasErrors('solicitante')} ? 'has-error'">
+							<label for="solicitante" class="col-sm-2 control-label">Solicitante</label>
+							<div class="col-sm-4"> 
+								<input type="text" class="form-control" id="solicitante" th:field=*{solicitante} placeholder="Ex: Jonathan Edwards"/>
+							</div>
+						</div>
+						
+						<div class="form-group" th:classappend="${#fields.hasErrors('motivo')} ? 'has-error'">
+							<label for="motivo" class="col-sm-2 control-label">Motivo</label>
+							<div class="col-sm-4"> 
+								<input type="text" class="form-control" id="motivo" th:field=*{motivo} placeholder="Ex: Link bloqueado / Instalar impressora"/>
+							</div>
+						</div>
+						
+						<div class="form-group" th:classappend="${#fields.hasErrors('data')} ? 'has-error'">
+							<label for="data" class="col-sm-2 control-label">Data</label>
+							<div class="col-sm-4"> 
+								<input type="text" class="form-control" id="data" th:field=*{data} 
+										data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
+										data-date-autoclose="true" data-date-today-highlight="true" data-date-orientation="auto"
+										placeholder="05/12/2020"/>
+							</div>
+						</div>
+						
+						<div class="form-group" th:classappend="${#fields.hasErrors('horario')} ? 'has-error'">
+							<label for="horario" class="col-sm-2 control-label">Horario</label>
+							<div class="col-sm-4"> 
+								<input type="text" class="form-control" id="horario" th:field=*{horario} placeholder="Ex: 12:10"/>
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<label for="status" class="col-sm-2 control-label">Status</label>
+							<div class="col-sm-2">
+								<select class="form-control" name="status" th:field=*{status}>
+									<option th:each="status : ${todosOsStatus}" th:value="${status}" th:text="${status.descricao}"></option>
+		                    	</select>
+		                    </div>
+						</div>
+						
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<button type="submit" class="btn btn-primary">Salvar</button>
+							</div>
+						</div>		
+								
+					</div>
+			</div>
+		</form>
+	</section>
+</html>

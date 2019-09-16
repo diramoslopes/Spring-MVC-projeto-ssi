@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="LayoutPadrao">
+	  
+	<head>
+		<meta charset="UTF-8">
+		<title>Busca Funcionarios</title>
+	</head>
+	
+	<section layout:fragment="conteudo">
+		
+		<ul class="nav nav-pills">
+			<li role="presentation"><a th:href="@{/menu}">Home</a></li>
+			<li role="presentation"><a th:href="@{/atendimentos/novo}">Atendimentos</a></li>
+			<li role="presentation"><a th:href="@{/departamentos}">Departamentos</a></li>
+			<li role="presentation" class="active"><a th:href="@{/funcionarios}">Funcionarios</a></li>
+			<li role="presentation"><a th:href="@{/impressoras}">Impressoras</a></li>
+			<li role="presentation"><a th:href="@{/reunioes}">Reuniões</a></li>
+		</ul>
+		
+		<h5 class="bg-info">Busca funcionarios</h5>
+		
+		<div class="panel panel-default">
+		
+				<div class="panel-heading">
+					<div class="clearfix">
+			    			<h1 class="panel-title aw-titulo-panel">Busca funcionarios</h1>
+			    			<a class="btn btn-link aw-link-panel" th:href="@{/funcionarios/novo}">Novo funcionario</a>
+			    	</div>
+		    	</div>
+		    	
+		    	<div class="panel-body">
+		    	
+		    	<form method="GET" class="form-horizontal" th:action="@{/funcionarios}" th:object=${filtro}>
+		    		<div class="form-group">
+		    			<div class="col-sm-4">
+		    				<div class="input-group">
+		    					<input class="form-control" placeholder="Digite o nome de um funcionario"
+		    							autofocus="autofocus" th:field="*{nomeFiltro}" ></input>
+		    					<span class="input-group-btn">
+		    						<button type="submit" class="btn btn-default">
+		    							<i class="glyphicon glyphicon-search"></i>		
+		    						</button>
+		    					</span>
+		    				</div>
+		    			</div>
+		    		</div>
+		    	</form>
+		    	
+		    	<div class="table-responsive">
+			    	<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th class="text-center col-md-1">#</th>
+								<th class="col-md-2">Nome</th>
+								<th class="text-center col-md-2">E-mail</th>
+								<th class="text-center">Ramal</th>
+								<th class="text-right col-md-2">Sistema Operacional</th>
+								<th class="text-right col-md-2">Versão</th>
+								<th class="col-md-1"></th>
+							</tr>				
+						</thead>  
+						
+						<tbody>
+							<tr th:each="funcionario : ${todosFuncionarios}">
+								<td class="text-center" th:text="${funcionario.id}"> </td>
+								<td th:text="${funcionario.nome}"> </td>
+								<td class="text-center" th:text="${funcionario.email}"> </td>
+								<td class="text-center" th:text="${funcionario.ramal}"> </td>
+								<td class="text-right" th:text="${funcionario.sistemaOperacional}"> </td>
+								<td class="text-right" th:text="${funcionario.versao}"> </td>
+								
+								<td class="text-center col-md-2">
+									<a class="btn btn-link btn-xs" th:href="@{/funcionarios/{id}(id=${funcionario.id})}"
+											title="Editar" rel="tooltip" data-placement="left" >
+										<span class="glyphicon glyphicon-pencil"></span>								
+									</a>
+									
+									<a class="btn btn-link btn-xs" th:href="@{/funcionarios/excluir/{id}(id=${funcionario.id})}" 
+											title="Excluir" rel="tooltip" data-placement="right" >
+										<span class="glyphicon glyphicon-trash"></span>								
+									</a>
+								</td>
+								
+							</tr> 
+							
+							<tr>
+								<td class="text-center" colspan="7" th:if="${#lists.isEmpty(todosFuncionarios)}">Nenhum funcionario foi encontrado</td>
+							</tr>
+							
+						</tbody>  	
+						
+			    	</table>
+			    </div>	
+		    </div>
+		    
+		 </div>
+	</section>
+</html>

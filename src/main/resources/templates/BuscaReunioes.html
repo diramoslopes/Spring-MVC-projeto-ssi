@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="LayoutPadrao">
+	  
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Reunioes Realizadas</title>
+	</head>
+	
+	<section layout:fragment="conteudo">
+		
+		<ul class="nav nav-pills">
+			<li role="presentation"><a th:href="@{/menu}">Home</a></li>
+			<li role="presentation"><a th:href="@{/atendimentos/novo}">Atendimentos</a></li>
+			<li role="presentation"><a th:href="@{/departamentos}">Departamentos</a></li>
+			<li role="presentation"><a th:href="@{/funcionarios}">Funcionarios</a></li>
+			<li role="presentation"><a th:href="@{/impressoras}">Impressoras</a></li>
+			<li role="presentation" class="active"><a href="@{/reunioes}">Reuniões</a></li>
+		</ul>
+		
+		<h5 class="bg-info">Reuniões</h5>
+		
+		<div class="panel panel-default">
+		
+				<div class="panel-heading">
+					<div class="clearfix">
+			    			<h1 class="panel-title aw-titulo-panel">Busca reuniões</h1>
+			    			<a class="btn btn-link aw-link-panel" th:href="@{/reunioes/agendar}">Agendar reunião</a>
+			    	</div>
+		    	</div>
+		    	
+		    	<div class="panel-body">
+		    	
+			    	<form method="GET" class="form-horizontal" th:action="@{/reunioes}" th:object=${filtro}>
+			    		<div class="form-group">
+			    			<div class="col-sm-4">
+			    				<div class="input-group">
+			    					<input class="form-control" placeholder="Digite o assunto da reunião"
+			    							autofocus="autofocus" th:field="*{assuntoFiltro}" ></input>
+			    					<span class="input-group-btn">
+			    						<button type="submit" class="btn btn-default">
+			    							<i class="glyphicon glyphicon-search"></i>		
+			    						</button>
+			    					</span>
+			    				</div>
+			    			</div>
+			    		</div>
+			    	</form>
+			    	
+		    	<div class="table-responsive">
+			    		<table class="table table-bordered table-striped">
+			    			<thead>
+								<tr>
+									<th class="text-center col-md-1">#</th>
+									<th class="col-md-1">Tipo</th>
+									<th class="col-md-2">Assunto</th>
+									<th class="text-center col-md-1">Data</th>
+									<th class="text-right col-md-1">Inicio</th>
+									<th class="text-center col-md-1">Termino</th>
+									<th class="text-center col-md-1">Local</th>
+									<th class="text-center col-md-1">Solicitante</th>
+									<th class="text-center col-md-1">Status</th>
+									<th class="col-md-1"></th>
+								</tr>
+							</thead>  
+							
+							<tbody>
+								<tr th:each="reuniao : ${todasReunioes}">
+									<td class="text-center" th:text="${reuniao.id}"></td>
+									<td class="text-left" th:text="${reuniao.tipo}"></td>
+									<td class="text-left" th:text="${reuniao.assunto}"></td>
+									<td class="text-center" th:text="${{reuniao.data}}" ></td>
+									<td class="text-right" th:text="${reuniao.inicio}"></td>
+									<td class="text-center" th:text="${reuniao.termino}"></td>
+									<td class="text-center" th:text="${reuniao.local}"></td>
+									<td class="text-center" th:text="${reuniao.solicitante}"></td>
+									
+									<td class="text-center" th:attr="data-role=${reuniao.id}">
+											<span class="label" th:text="${reuniao.status.descricao}"
+											  th:classappend="${reuniao.agendada ? 'label-warning' : 'label-success'}"></span>
+									</td>
+									
+									<td class="text-center">
+										<a class="btn btn-link btn-xs" th:href="@{/reunioes/{id}(id=${reuniao.id})}"
+												title="Editar" rel="tooltip" data-placement="left">
+											<span class="glyphicon glyphicon-pencil"></span>
+										</a>
+										
+										<a class="btn btn-link btn-xs" th:href="@{/reunioes/excluir/{id}(id=${reuniao.id})}"
+												title="Excluir" rel="tooltip" data-placement="right">
+											<span class="glyphicon glyphicon-trash"></span>
+										</a>
+										
+										<a class="btn btn-link btn-xs js-atualizar-status" 
+											title="Realizada" rel="tooltip" data-placement="top"
+											th:if="${reuniao.agendada}"
+			   								th:attr="data-codigo=${reuniao.id}"
+											th:href="@{/reunioes/{codigo}/realizar(codigo=${reuniao.id})}">
+			   								<span class="glyphicon glyphicon-check"></span>
+		   								</a>
+		   							</td>
+		   								
+								</tr>
+							
+								<tr>
+									<td class="text-center" colspan="10">Nenhum atendimento foi encontrada</td>
+								</tr>
+							</tbody>	
+							
+				    	</table>
+			    	</div>
+			   </div>
+		 </div>
+		
+	</section>
+	
+</html>

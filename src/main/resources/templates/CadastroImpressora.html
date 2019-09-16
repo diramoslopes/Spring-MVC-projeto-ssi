@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="LayoutPadrao">
+	  
+	<head>
+		<meta charset="UTF-8">
+		<title>Cadastro Impressora</title>
+	</head>
+
+	<section layout:fragment="conteudo">
+					
+		<ul class="nav nav-pills">
+			<li role="presentation"><a th:href="@{/menu}">Home</a></li>
+			<li role="presentation"><a th:href="@{/atendimentos/novo}">Atendimentos</a></li>
+			<li role="presentation"><a th:href="@{/departamentos}">Departamentos</a></li>
+			<li role="presentation"><a th:href="@{/funcionarios}">Funcionarios</a></li>
+			<li role="presentation" class="active"><a th:href="@{/impressoras}">Impressoras</a></li>
+			<li role="presentation"><a th:href="@{/reunioes}">Reuniões</a></li>
+		</ul>
+				
+			<h5 class="bg-info">Cadastro impressora</h5>
+			
+			<form class="form-horizontal" method="POST" th:action="@{/impressoras}" th:object="${impressora}">
+				
+				<div layout:insert="MensagemGeral"></div>
+				<div layout:insert="MensagemErro"></div>
+			
+				<div class="panel panel-default">
+				
+					<div class="panel-heading">
+			    		<div class="clearfix">
+				    		<h1 class="panel-title aw-titulo-panel">Nova impressora</h1>
+				    		<a class="btn btn-link aw-link-panel" th:href="@{/impressoras}">Busca impressora</a>
+				    	</div>
+			    	</div>
+					
+					<div class="panel-body">
+							<input type="hidden" th:field="*{id}" />
+					
+							<div class="form-group" th:classappend="${#fields.hasErrors('nomeImpressora')} ? 'has-error'">
+								<label for="nomeImpressora" class="col-sm-2 control-label">Impressora</label>
+								<div class="col-sm-4"> 
+									<input type="text" class="form-control" id="nomeImpressora" th:field=*{nomeImpressora} placeholder="Ex: Deskjet 970cxi"/>
+								</div>
+							</div>
+						
+							<div class="form-group" th:classappend="${#fields.hasErrors('marca')} ? 'has-error'">
+								<label for="marca" class="col-sm-2 control-label">Marca</label>
+								<div class="col-sm-4"> 
+									<input type="text" class="form-control" id="marca" th:field=*{marca} placeholder="Ex: HP"/>
+								</div>
+							</div>
+						
+							<div class="form-group" th:classappend="${#fields.hasErrors('ip')} ? 'has-error'">
+								<label for="ip" class="col-sm-2 control-label">IP</label>
+								<div class="col-sm-4"> 
+									<input type="text" class="form-control" id="ip" th:field=*{ip} placeholder="Ex: 192.168.12.106"/>
+								</div>
+							</div>
+						
+							<div class="form-group" th:classappend="${#fields.hasErrors('andar')} ? 'has-error'">
+								<label for="andar" class="col-sm-2 control-label">Andar</label>
+								<div class="col-sm-4"> 
+									<input type="text" class="form-control" id="andar" th:field=*{andar} placeholder="Ex: 4°Andar" />
+								</div>
+							</div>
+						
+							<div class="form-group" th:classappend="${#fields.hasErrors('patrimonio')} ? 'has-error'">
+								<label for="patrimonio" class="col-sm-2 control-label">Patrimonio</label>
+								<div class="col-sm-4"> 
+									<input type="text" class="form-control" id="patrimonio" th:field=*{patrimonio} placeholder="Ex: FAESP-0100 / SENAR-0101" />
+								</div>
+							</div>
+						
+							<div class="form-group" th:classappend="${#fields.hasErrors('codigoMaquina')} ? 'has-error'">
+								<label for="codigoMaquina" class="col-sm-2 control-label">Codigo da Maquina</label>
+								<div class="col-sm-4"> 
+									<input type="text" class="form-control" id="codigoMaquina" th:field=*{codigoMaquina} placeholder="Ex: 3105"/>
+								</div>
+							</div>
+						
+							<div class="form-group">
+								<div class="col-sm-offset-2 col-sm-10">
+									<button type="submit" class="btn btn-primary">Salvar</button>
+								</div>
+							</div>
+					
+					</div>
+				</div>
+			</form>
+	</section>
+</html>

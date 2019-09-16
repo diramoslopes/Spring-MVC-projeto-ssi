@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="LayoutPadrao">
+	  
+	<head>
+		<meta charset="UTF-8">
+		<title>Busca Impressoras</title>
+	</head>
+	
+	<section layout:fragment="conteudo">
+		
+		<ul class="nav nav-pills">
+			<li role="presentation"><a th:href="@{/menu}">Home</a></li>
+			<li role="presentation"><a th:href="@{/atendimentos/novo}">Atendimentos</a></li>
+			<li role="presentation"><a th:href="@{/departamentos}">Departamentos</a></li>
+			<li role="presentation"><a th:href="@{/funcionarios}">Funcionarios</a></li>
+			<li role="presentation" class="active"><a th:href="@{/impressoras}">Impressoras</a></li>
+			<li role="presentation"><a th:href="@{/reunioes}">Reuniões</a></li>
+		</ul>
+		
+		<h5 class="bg-info">Busca impressoras</h5>
+		
+		<div class="panel panel-default">
+		
+				<div class="panel-heading">
+					<div class="clearfix">
+			    			<h1 class="panel-title aw-titulo-panel">Busca impressora</h1>
+			    			<a class="btn btn-link aw-link-panel" th:href="@{/impressoras/novo}">Nova impressora</a>
+			    	</div>
+		    	</div>
+		    	
+		    	<div class="panel-body">
+		    	
+		    	<form method="GET" class="form-horizontal" th:action="@{/impressoras}" th:object=${filtro}>
+		    		<div class="form-group">
+		    			<div class="col-sm-4">
+		    				<div class="input-group">
+		    					<input class="form-control" placeholder="Digite o nome da impressora"
+		    							autofocus="autofocus" th:field="*{impressoraFiltro}" ></input>
+		    					<span class="input-group-btn">
+		    						<button type="submit" class="btn btn-default">
+		    							<i class="glyphicon glyphicon-search"></i>		
+		    						</button>
+		    					</span>
+		    				</div>
+		    			</div>
+		    		</div>
+		    	</form>
+		    	
+		    	<div class="table-responsive">
+			    	<table class="table table-bordered table-striped">
+						<thead>
+							<tr>
+								<th class="text-center col-md-1">#</th>
+								<th class="text-center col-md-3">Impressora</th>
+								<th class="text-center col-md-1">Marca</th>
+								<th class="text-center col-md-2">IP</th>
+								<th class="text-right col-md-1">Andar</th>
+								<th class="text-center col-md-2">Patrimonio</th>
+								<th class="text-center col-md-1">Codigo Maquina</th>
+								<th class="col-md-1"></th>
+							</tr>				
+						</thead> 
+						 
+						<tbody>
+							<tr th:each="impressora : ${todasImpressoras}">
+								<td class="text-center" th:text="${impressora.id}"></td>
+								<td class="text-center" th:text="${impressora.nomeImpressora}"></td>
+								<td class="text-center" th:text="${impressora.marca}"></td>
+								<td class="text-center" th:text="${impressora.ip}"></td>
+								<td class="text-right" th:text="${impressora.andar}"></td>
+								<td class="text-center" th:text="${impressora.patrimonio}"></td>
+								<td class="text-center" th:text="${impressora.codigoMaquina}"></td>
+								
+								<td class="text-center">
+									<a class="btn btn-link btn-xs" th:href="@{/impressoras/{id}(id=${impressora.id})}" 
+											title="Editar" rel="tooltip" data-placement="left" >
+										<span class="glyphicon glyphicon-pencil"></span>								
+									</a>
+									
+									<a class="btn btn-link btn-xs" th:href="@{/impressoras/excluir/{id}(id=${impressora.id})}" 
+											title="Excluir" rel="tooltip" data-placement="right" >
+										<span class="glyphicon glyphicon-trash"></span>								
+									</a>
+								</td>
+							</tr> 
+							
+							<tr>
+								<td class="text-center" colspan="8" th:if="${#lists.isEmpty(todasImpressoras)}">Nenhuma impressora foi encontrada</td>
+							</tr>
+							
+						</tbody>  	
+						
+			    	</table>	
+			    </div>
+		    </div>
+		    
+		</div>
+		
+	</section>
+</html>

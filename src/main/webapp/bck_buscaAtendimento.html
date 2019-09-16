@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="LayoutPadrao">
+	  
+	<head>
+		<title>Busca Atendimentos</title>
+	</head>
+	
+	<section layout:fragment="conteudo">
+	
+		<h3>devtools - aten</h3>
+		
+		<div class="panel panel-default">
+		
+				<div class="panel-heading">
+					<div class="clearfix">
+			    			<h1 class="panel-title aw-titulo-panel">Busca atendimentos</h1>
+			    			<a class="btn btn-link aw-link-panel" href="/atendimentos/novo">Novo atendimento</a>
+			    	</div>
+		    	</div>
+		    	
+		    <div class="panel-body">
+		    	<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th class="text-center col-md-1">#</th>
+							<th>Solicitante</th>
+							<th class="col-md-2">Motivo</th>
+							<th class="text-center col-md-2">Data</th>
+							<th class="text-right col-md-2">Horario</th>
+							<th class="text-center col-md-2">Status</th>
+							<th class="col-md-1"></th>
+						</tr>				
+					</thead>  
+					
+					<tbody>
+						<tr th:each="atendimento : ${todosAtendimentos}">
+							<td class="text-center" th:text="${atendimento.id}"></td>
+							<td th:text="${atendimento.solicitante}"></td>
+							<td th:text="${atendimento.motivo}"></td>
+							<td class="text-center" th:text="${{atendimento.data}}"></td>
+							<td class="text-right" th:text="${atendimento.horario}"></td>
+							
+							<td class="text-center" th:text="${atendimento.status.descricao}">
+								
+							<td class="text-center col-md-1"></td>
+						</tr> 
+						
+						<tr>
+							<td class="text-center" colspan="7" th:if="${#lists.isEmpty(todosAtendimentos)}">Nenhum atendimento foi encontrada</td>
+						</tr>
+						
+					</tbody>  
+						
+		    	</table>	
+		    </div>
+		    
+		</div>
+	</section>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	  layout:decorate="LayoutPadrao">
+	  
+	<head>
+		<meta charset="UTF-8">
+		<title>Reuniões Agendadas</title>
+	</head>
+	
+	<section layout:fragment="conteudo">
+		
+		<ul class="nav nav-pills">
+			<li role="presentation"><a th:href="@{/menu}">Home</a></li>
+			<li role="presentation"><a th:href="@{/atendimentos/novo}">Atendimentos</a></li>
+			<li role="presentation"><a th:href="@{/departamentos}">Departamentos</a></li>
+			<li role="presentation"><a th:href="@{/funcionarios}">Funcionarios</a></li>
+			<li role="presentation"><a th:href="@{/impressoras}">Impressoras</a></li>
+			<li role="presentation"  class="active"><a th:href="@{/reunioes}">Reuniões</a></li>
+		</ul>
+		
+		<h5 class="bg-info">Agendar reunião</h5>
+		
+		<form class="form-horizontal" method="POST" th:action="@{/reunioes}" th:object="${reuniao}">
+			
+			<div layout:insert="MensagemGeral"></div>
+			<div layout:insert="MensagemErro"></div>
+			
+			<div class="panel panel-default">
+					
+					<div class="panel-heading">
+		    			<div class="clearfix">
+			    			<h1 class="panel-title aw-titulo-panel">Agendar reunião</h1>
+			    			<a class="btn btn-link aw-link-panel" th:href="@{/reunioes}">Reunioes</a>
+			    		</div>
+		    		</div>
+		    		
+		    		<div class="panel-body">
+		    			
+		    			<input type="hidden" th:field="*{id}" />
+		    			
+		    			<div class="form-group" th:classappend="${#fields.hasErrors('tipo')} ? 'has-error'">
+							<label for="tipo" class="col-sm-2 control-label">Tipo</label>
+							<div class="col-sm-4"> 
+								<input type="text" class="form-control" id="tipo" th:field=*{tipo} placeholder="Ex: CNA Videoconferencia / Webex Webconferencia Senar"/>
+							</div>
+						</div>
+						
+						<div class="form-group" th:classappend="${#fields.hasErrors('assunto')} ? 'has-error'">
+							<label for="assunto" class="col-sm-2 control-label">Assunto</label>
+							<div class="col-sm-4"> 
+								<input type="text" class="form-control" id="assunto" th:field=*{assunto} placeholder="Ex: Reunião da Comissão Especial de Bovinocultura de Leite "/>
+							</div>
+						</div>
+						
+						<div class="form-group" th:classappend="${#fields.hasErrors('data')} ? 'has-error'">
+							<label for="data" class="col-sm-2 control-label">Data</label>
+							<div class="col-sm-4"> 
+								<input type="text" class="form-control" id="data" th:field=*{data} 
+										data-provide="datepicker" data-date-format="dd/mm/yyyy" data-date-language="pt-BR"
+										data-date-autoclose="true" data-date-today-highlight="true" data-date-orientation="auto"
+										placeholder="05/12/2020"/>
+							</div>
+						</div>
+						
+						<div class="form-group" th:classappend="${#fields.hasErrors('inicio')} ? 'has-error'">
+							<label for="inicio" class="col-sm-2 control-label">Inicio</label>
+							<div class="col-sm-4"> 
+								<input type="text" class="form-control" id="inicio" th:field=*{inicio} placeholder="Ex: 08:30"/>
+							</div>
+						</div>
+						
+						<div class="form-group" th:classappend="${#fields.hasErrors('termino')} ? 'has-error'">
+							<label for="termino" class="col-sm-2 control-label">Termino</label>
+							<div class="col-sm-4"> 
+								<input type="text" class="form-control" id="termino" th:field=*{termino} placeholder="Ex: 17:00"/>
+							</div>
+						</div>
+						
+						<div class="form-group" th:classappend="${#fields.hasErrors('local')} ? 'has-error'">
+							<label for="local" class="col-sm-2 control-label">Local</label>
+							<div class="col-sm-4"> 
+								<input type="text" class="form-control" id="local" th:field=*{local} placeholder="Ex: 4° Andar B"/>
+							</div>
+						</div>
+						
+						<div class="form-group" th:classappend="${#fields.hasErrors('solicitante')} ? 'has-error'">
+							<label for="solicitante" class="col-sm-2 control-label">Solicitante</label>
+							<div class="col-sm-4"> 
+								<input type="text" class="form-control" id="solicitante" th:field=*{solicitante} placeholder="Ex: John Wesley "/>
+							</div>
+						</div>
+						
+						<div class="form-group" th:classappend="${#fields.hasErrors('status')} ? 'has-error'">
+							<label for="status" class="col-sm-2 control-label">Status</label>
+							<div class="col-sm-2">
+								<select class="form-control" name="status" th:field=*{status}>
+									<option th:each="status : ${todosOsStatus}" th:value="${status}" th:text="${status.descricao}"></option>
+		                    	</select>
+		                    </div>
+						</div>
+						
+						<div class="form-group">
+							<div class="col-sm-offset-2 col-sm-10">
+								<button type="submit" class="btn btn-primary">Salvar</button>
+							</div>
+						</div>	
+						
+					</div>
+				</div>
+			</form>
+		</section>
+</html>
